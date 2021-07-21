@@ -1,0 +1,79 @@
+Options +FollowSymlinks
+RewriteEngine on
+Options -Indexes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R]
+DirectoryIndex index.html index.php
+RewriteRule ^quanly/ck/ck/ckfinder/ckfinder.html$ quanly/ck/ck/ckfinder/ckfinder.html  [L]
+
+RewriteRule ^search.html?(.*)$ index.php?com=search&$1 [L,QSA]
+
+RewriteRule ^([a-zA-Z0-9_-]+).html&p=([0-9]+)$ index.php?com=$1&p=$2  [L]
+RewriteRule ^([a-zA-Z0-9_-]+).html&p2=([0-9]+)$ index.php?com=$1&p2=$2  [L]
+RewriteRule ^([a-zA-Z0-9_-]+).html$ index.php?com=$1  [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+).html$ index.php?com=$1&id=$2 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+).html&p=([0-9]+)$ index.php?com=$1&id=$2&p=$3 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9]+).html$ index.php?com=$1&tinh=$2&id=$4 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9]+).html&p=([0-9]+)$ index.php?com=$1&tinh=$2&id=$4&p=$5 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9]+).html&sp=([0-9]+)$ index.php?com=$1&tinh=$2&id=$4&sp=$5 [L]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9]+).html&c=([0-9]+)$ index.php?com=$1&tinh=$2&id=$4&c=$5 [L]
+
+
+
+
+
+###Start Kloxo PHP config Area
+###Please Don't edit these comments or the content in between. kloxo uses this to recognize the lines it writes to the the file. If the above line is corrupted, it may fail to recognize them, leading to multiple lines.
+
+<Ifmodule mod_php4.c>
+	php_value upload_max_filesize 20000M
+	php_value max_execution_time  3000
+	php_value max_input_time  6000
+	php_value memory_limit  3200M
+	php_value post_max_size  8000M
+	php_flag register_globals  off
+	php_flag display_errors  off
+	php_flag file_uploads  on
+	php_flag log_errors  off
+	php_flag output_buffering  off
+	php_flag register_argc_argv  on
+	php_flag magic_quotes_gpc   off
+	php_flag magic_quotes_runtime  off
+	php_flag magic_quotes_sybase  off
+	php_flag mysql.allow_persistent  off
+	php_flag register_long_arrays  on
+	php_flag allow_url_fopen  on
+	php_flag cgi.force_redirect  on
+	php_flag enable_dl  on
+</Ifmodule>
+
+<Ifmodule mod_php5.c>
+	php_value upload_max_filesize 20000M
+	php_value max_execution_time  300
+	php_value max_input_time  6000
+	php_value memory_limit  3200M
+	php_value post_max_size  8000M
+	php_flag register_globals  off
+	php_flag display_errors  off
+	php_flag file_uploads  on
+	php_flag log_errors  off
+	php_flag output_buffering  off
+	php_flag register_argc_argv  on
+	php_flag magic_quotes_gpc   off
+	php_flag magic_quotes_runtime  off
+	php_flag magic_quotes_sybase  off
+	php_flag mysql.allow_persistent  off
+	php_flag register_long_arrays  on
+	php_flag allow_url_fopen  on
+	php_flag cgi.force_redirect  on
+	php_flag enable_dl  on
+</Ifmodule>
+
+###End Kloxo PHP config Area
+
+###End Kloxo PHP config Area
+# Configures the caching expiry date for browser caching of static files.
+
+

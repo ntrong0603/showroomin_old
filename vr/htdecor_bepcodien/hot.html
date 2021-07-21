@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/simple-line-icons.css">
+	<link rel="stylesheet" type="text/css" href="./css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/animate.css">
+	<link rel="stylesheet" type="text/css" href="./css/slick.css">
+	<link rel="stylesheet" type="text/css" href="./css/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="./js/style.js"></script>
+
+	
+	<script type="text/javascript" src="./js/slick.min.js"></script>
+<style>
+body {
+    background-color: black;
+}
+.a{
+	border-top: 50px solid red;
+
+	border-right: 50px solid transparent;
+}
+h1 {
+    color: green;
+    transform: rotate(-45deg);
+-webkit-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+
+}
+.menu_gioithieu{
+	display: none;
+}
+.menu_gioithieu li{
+	list-style: none;
+    float: left;
+    padding: 15px 30px;
+    position: relative;
+}
+.menu_gioithieu li a{
+	text-decoration: none;
+}
+.menu_gioithieu li:hover{
+	background-color: red;
+}
+.menu_gioithieu li:hover a{
+	color: white;
+}
+.content_gioithieu{
+	width: 500px;
+    position: absolute;
+	max-height: 15em;
+    background-color: white;
+    color: black;
+    left: 0px;
+    top: 55px;
+    padding: 1em 1em;
+    display: none;
+}
+</style>
+</head>
+<body>
+<!--<div  style="width:50px; height:50px;position: relative;">
+<div class="a" style="position: absolute;"></div>
+<div><h1 style="margin: 4px;
+    padding: 0px;
+    font-size: 20px;">hot</h1></div>
+</div>
+<p>This is an ordinary paragraph. Notice that this text is blue. The default text color for a page is defined in the body selector.</p>-->
+<div>
+<div style="float: left;">
+	<a href="javascript:void(0)" class="icon_menu_gioithieu"><img src="images/menu.png" alt="menu" title="menu" width="50px;"></a>
+</div>
+<div class="menu_gioithieu" style="background-color: white;width: max-content;float: left;">
+	<ul style="margin: 0px;padding: 0px;">
+		<li class="danhmucmenu" onclick="toggelMenu()">
+			<a href="javascript:void(0)">Giới thiệu</a>
+			<div class="content_gioithieu">
+				Vinmus là thương hiệu của Công ty Nội Thất Vinh Mỹ được thành lập từ năm 1992 (theo giấy chứng nhận đăng ký nhãn hiệu số 215713 của Cục Sở hữu trí tuệ). Với slogan “Your Home, Your Design”, Vinmus đem đến cho khách hàng dịch vụ trọn gói thiết kế - sản xuất - thi công nội thất cho nhiều dự án căn hộ, biệt thự... Đội ngũ nhân viên thiết kế chuyên nghiệp luôn tư vấn cho khách hàng lựa chọn sản phẩm phù hợp với không gian sống, sở thích và nhu cầu sử dụng. Vinmus đáp ứng được đầy đủ các yêu cầu khắt khe của phân khúc nội thất “thiết kế theo phong cách riêng” và làm hài lòng các khách hàng khó tính nhất.
+			</div>
+		</li>
+		<li class="danhmucmenu" onclick="toggelMenu()">
+			<a href="javascript:void(0)">Chính sách giao hàng</a>
+			<div class="content_gioithieu">
+				<p>
+					Vinmus tính phí giao hàng như thế nào? 
+					Phí giao hàng được tính dựa trên giá trị đơn hàng của sản phẩm và được áp dụng tùy theo khu vực với mức phí khác nhau. 
+					Vinmus hỗ trợ 100% phí vận chuyển đối với đơn hàng ở tp. Hồ Chí Minh
+					Khi nào tôi nhận được sản phẩm?
+					Sau khi quý khách đã đặt hàng thành công, Vinmus sẽ gọi điện thoại cho quý khách xác nhận đơn hàng.
+					Trước khi giao, Vinmus sẽ liên hệ với quý khách để hẹn ngày và thời gian giao hàng, khung làm việc từ thứ 2 đến thứ 7.
+					Tôi cần sản phẩm gấp, bắt buộc phải giao trong ngày có được không? 
+					Thời gian giao hàng tùy thuộc vào sản phẩm đặt hàng và lịch giao hàng của công ty. Mọi yêu cầu cần xử lý gấp, xin vui lòng gọi số Hotline 19009042. Vinmus sẽ hồi đáp những kiến nghị của khách hàng trong giờ hành chính.
+					Vinmus giao hàng đến lúc tôi đi vắng thì làm thế nào? 
+					Quý khách có thể nhờ người khác nhận hàng giúp, tuy nhiên Vinmus sẽ cần một thư ủy quyền với chữ ký xác nhận của quý khách, trong đó nêu rõ về người được ủy quyền nhận đơn hàng. 
+					Người được ủy quyền sẽ có trách kiểm tra và kí vào đơn hàng xác nhận sản phẩm ở trong điều kiện tốt, trong trường hợp người ủy quyền không hài lòng về sản phẩm hãy ghi chú vào đơn hàng và thông báo cho Vinmus.
+					Có khu vực nào mà Vinmus không giao hàng đến không? 
+					Vinmus có thể giao hàng đến hầu hết các tỉnh thành và khu vực trong nước
+				</p>
+			</div>
+		</li>
+		<li class="danhmucmenu" onclick="toggelMenu()">
+			<a href="javascript:void(0)" >Liên hệ</a>
+			<div class="content_gioithieu">
+				Công Ty TNHH Nội Thất Vinh Mỹ
+				SHOWROOM TÂN BÌNH
+				Địa chỉ: 67 Trần Quốc Hoàn, Phường 4, Q.Tân Bình, TP.HCM  
+				Điện thoại: (028)62.650.550 - 62.653.389
+				Email: sales@vinhmy.com
+			</div>
+		</li>
+	</ul>
+</div>
+<div class="clearfix"></div>
+<script type="text/javascript">
+	$( document ).ready(function(){
+		var numClick=0;
+		$(".icon_menu_gioithieu").click(function(){
+			element=$(this);
+			if(numClick==0){
+				numClick=1;
+				element.parent().parent().find(".menu_gioithieu").toggle(200);
+			}
+			else{
+				numClick=0;
+				element.parent().parent().find(".content_gioithieu").hide(200);
+				element.parent().parent().find(".menu_gioithieu").hide(200);
+			}
+		});
+		$(".danhmucmenu").click(function(){
+			//$(this).parent().find(".content_gioithieu").hide(200);
+			element=$(this);
+			thongtingioithieu=element.find(".content_gioithieu");
+			if(thongtingioithieu.css("display")=="none"){
+				element.parent().find(".content_gioithieu").hide(200);
+				thongtingioithieu.toggle(200);
+			}
+			else{
+				thongtingioithieu.hide(200);
+			}
+		});
+	});
+</script>
+</div>
+</body>
+</html>

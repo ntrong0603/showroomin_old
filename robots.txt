@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /quanly/
+
+Sitemap: http://chuyenbds.vn/sitemap.xml

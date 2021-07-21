@@ -1,0 +1,165 @@
+
+
+
+@charset "utf-8";
+
+.box_containerlienhe
+{
+
+}
+.box_containerlienhe .content
+{
+	padding:10px;
+}
+.box_containerlienhe .box_contact_l
+{
+  line-height:25px;
+}
+.box_containerlienhe .box_contact_r
+{
+	padding:15px 10px 0px 20px;
+}
+.box_containerlienhe .box_contact_r td
+{
+  font-size:14px;
+}
+.box_containerlienhe .box_contact_r span
+{
+	color:#c40707;
+}
+.box_containerlienhe .box_contact_r input,
+.box_containerlienhe .box_contact_r textarea
+{
+	margin:7px;
+	padding:0px 7px;
+}
+.box_containerlienhe .box_contact_r input.button
+{
+  background:#FF0099;
+  box-shadow:3px 3px 3px #000000;
+  padding:4px 20px;
+  border:none;
+  margin-top:15px;
+  color:#fff;
+}
+
+.content_gioithieu
+{
+	padding:10px;
+	}
+
+.box_containerlienhe .box_new
+{
+
+	padding:5px 15px;
+	float:left;
+	border-bottom:1px dotted #A0A0A4;
+	}
+.box_containerlienhe .box_new:last
+{
+	border-bottom:none;
+	}
+
+.box_containerlienhe .box_new h1 a
+{
+	color:#000000;
+	font-size:17px;
+	text-decoration:none;
+  margin:5px;
+	}
+.box_containerlienhe .box_new h1 a:hover
+{
+	color:#F00 !important;
+}
+
+.box_containerlienhe .othernews h1
+{
+	color:#d31158;
+}
+
+.box_containerlienhe .othernews ul
+{
+	list-style:none;
+	margin-top:10px;
+}
+.box_containerlienhe .othernews ul li
+{
+  padding:3px 10px 3px 40px;
+}
+.box_containerlienhe .othernews ul li a
+{
+	color:#d31158;
+	background;url(../images/bg_tieude.png)no-repeat left 0;
+}
+.box_containerlienhe .othernews ul li a:hover
+{
+	color:#D40000;
+}
+
+
+
+
+
+
+
+
+
+
+<!--Hợp tin tức-->
+
+.wap_box_new
+{
+  margin-bottom:10px;
+}
+.box_new
+{
+  margin:10px 11px;
+}
+.box_new a h4:hover
+{
+	color:#F00;
+}
+.box_new a.chitiet
+{
+	color:#00F;
+}
+.box_new h3
+{
+  background:url(images/i_dichvu.png)no-repeat;
+  padding:5px 0px;
+  padding-left:30px;
+  color:#002dad;
+  font-size:12px;
+}
+.box_new h4
+{
+	font-size:16px;
+	color:#2A00FF;
+	font-weight:normal;
+	margin-bottom:10px;
+}
+.box_new img
+{
+  float:left;
+  margin:4px 15px 3px 0px; 
+  width:170px;
+  height:130px;
+}
+.box_new p
+{
+  text-align:justify;
+}
+.box_new a.chitiet img
+{
+ 
+ width:84px;
+ height:32px;
+ margin:0px;
+ float:right;
+ border:none;
+}
+<!--Hợp tin tức-->
+
+
+
+

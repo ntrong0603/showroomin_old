@@ -1,0 +1,103 @@
+@media (min-width: 991px){
+	header .bot{
+	
+	right: 0px;
+	}
+	
+}
+@media (max-width: 1170px){
+	#dichvu_top{
+	width: 100%;
+}
+.dichvu_top{
+	width: 100%;
+}
+}
+@media (max-width: 991px){
+	#logo{
+		float:left;
+		
+	}
+	#block_logo{
+		text-align: center;
+	}
+	.hotline{
+		top: 18px;
+	}
+	.block_search{
+		top: 15px;
+	}
+}
+@media (max-width: 768px){
+	.navbar-collapse{
+		position:absolute;
+		top: 40px;
+		width: 200px;
+		background:#ddd;
+	}
+	.navbar-nav a{
+		color: white;
+	}
+	.navbar-nav {
+	float: none;
+    text-align: center;
+	}
+	.navbar-default .navbar-nav > li > a {
+    color: #000;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #000;
+   
+	background:url(../images/arrow_menu.png) center bottom no-repeat;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  
+   color: #000;
+	background:url(../images/arrow_menu.png) center bottom no-repeat;
+}
+	#logo{
+		float: none !important;
+	}
+	#banner{
+		
+		float: none !important;position: relative !important;
+		
+	}
+		.hotline{
+		display: block;
+		top: 0px !important;
+	}
+	.breadcum{
+		height: auto;
+	}
+	#google_nav a, #span {
+    font-size: 16px;
+    line-height: 25px;
+    display: block;
+    float: left;
+	height:auto;
+	margin: 0px;
+	}
+}
+@media (max-width: 499px){
+	.hotline span{
+		display: block;
+	}
+	.hotline{
+		position:relative;
+		right: 0px;
+	}
+	.block_search{
+		top: 65px;
+	}
+	.block_logo a{
+		display:inline-block;
+	}
+	#logo{
+	float: none;
+	}
+	header .block_menu{
+		height: 120px;
+	}
+	
+}

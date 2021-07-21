@@ -1,0 +1,625 @@
+﻿<krpano version="1.19" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+	<include url="%SWFPATH%/plugins/showtext.xml" />
+	<include url="%SWFPATH%/plugins/showimage.xml" />
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               webvr_gyro_keeplookingdirection="false"
+	               webvr_prev_next_hotspots="true"
+	               littleplanetintro="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	<plugin name="loading"
+	        url="images/logo.png"
+	        scale="0.4"
+	        keep="true"
+	        align="center"
+	        enabled="false"
+	        visible="false"
+	        />
+	<events onxmlcomplete="set(plugin[loading].visible,true);" 
+	        onloadcomplete="set(plugin[loading].visible,false); fade_in_hotspots();" 
+	        />
+	<textstyle name="hotspottextstyle"
+		font="Arial" fontsize="18" bold="true" padding="5 10" italic="false" textcolor="0xff9900" background="true" backgroundcolor="0x333333" border="true" bordercolor="0xff9900" 
+		alpha="1" blendmode="layer" effect="glow(0x000000,0.5,4,3);dropshadow(4,45,0x000000,4,0.66);"
+		origin="cursor" edge="bottom" textalign="center" xoffset="0" yoffset="-5" noclip="true" showtime="0.1" fadetime="0.25" fadeintime="0.1"
+	/>
+	<autorotate enabled="true" waittime="1.0" accel="1.0" speed="5.0" horizon="0.0" tofov="120.0" />
+	<plugin name="soundinterface"
+	        url="%SWFPATH%/plugins/soundinterface.swf"
+	        alturl="%SWFPATH%/plugins/soundinterface.js"
+	        rootpath="%CURRENTXML%"
+	        preload="true" keep="true" volume="0.3"
+	        />
+	<plugin name="snd" url="%SWFPATH%/images/soundonoff.png" keep="true" align="leftbottom" x="10" y="20" alpha="0.5" scale="1.0" 
+		    onover="tween(alpha,1);" 
+		    onout="tween(alpha,0.5);" 
+	        crop="0|0|50|50"
+	        onclick="switch(soundinterface.mute); switch(crop, 0|0|50|50, 0|50|50|50);" 
+	        />
+	<layer name="inforicon" url="images/conversation.png" x="0" y="10" keep="true" handcursor="false" capture="false"
+		   align="centertop"
+		   scale="0" scalechildren="true" onhover="showtext('Giới Thiệu',hotspottextstyle);"
+		   onclick="openInfo(4);"
+	/>
+	<action name="openInfo">
+
+		set(layer[inforpanel].url, "images/00%1.png");
+
+		layer[inforpanel].changeorigin(center,center);
+		layer[inforpanel].url(images/00%1.png);
+		set(bigscale,1);
+		if(layer[inforpanel].imagewidth GT stagewidth, div(bigscale, stagewidth, layer[inforpanel].imagewidth); );
+
+		tween(layer[inforpanel].x, 10);
+		tween(layer[inforpanel].y, -20);
+		tween(layer[inforpanel].scale, get(bigscale));
+
+	</action>
+
+	<layer name="inforpanel" keep="true" handcursor="false" capture="false"
+		   align="centertop"
+		   scale="0" scalechildren="true"
+		   onclick="closeInfoPanel();"
+	/>
+
+	<action name="closeInfoPanel">
+		layer[inforpanel].changeorigin(centertop,centertop);
+
+		tween(layer[inforpanel].x, 10);
+		tween(layer[inforpanel].y, 10);
+		tween(layer[inforpanel].scale, 0);
+	</action>
+	<!--Sơ đồ mặt bằng -->
+	<layer name="bando" title="Bản Đồ" url="graphics/maps_icon.png" x="10" y="80" keep="true" handcursor="false" capture="false" align="lefttop" scale="0.25" scalechildren="true" onclick="openmap();" onhover="showtext('Sơ Đồ',hotspottextstyle);"	       
+		/>
+	<layer name="map" title="Ban Do" url="graphics/map5.png" x="20" y="20" keep="true" handcursor="false" capture="false"
+	       align="lefttop"
+	       scale="0.0" scalechildren="true"
+	       onclick="openmap();"
+	       />
+	<action name="openmap">
+		set(layer[map].onclick, closemap(); );
+		layer[map].changeorigin(center,center);
+
+		set(bigscale,1);
+		if(layer[map].imagewidth GT stagewidth, div(bigscale, stagewidth, layer[map].imagewidth); );
+
+		tween(layer[map].x, 0);
+		tween(layer[map].y, -10);
+		tween(layer[map].scale, get(bigscale));
+	</action>
+	<action name="closemap">
+		set(layer[map].onclick, openmap(); );
+		layer[map].changeorigin(lefttop,lefttop);
+
+		tween(layer[map].x, 20);
+		tween(layer[map].y, 20);
+		tween(layer[map].scale, 0.0);
+	</action>
+
+	<style name="mapspot" keep="true" url="graphics/camicon.png" parent="map" align="lefttop" scale="1.0" scale.mobile="2" edge="center"  />
+
+	<!-- Căn hộ 150m2-->
+	<layer name="spot1" style="mapspot" x="437" y="287" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng khách (1)',hotspottextstyle);" onclick="loadscene(scene_pk1_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot2" style="mapspot" x="605" y="341" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng khách (2)',hotspottextstyle);" onclick="loadscene(scene_pk2_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot3" style="mapspot" x="547" y="228" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng khách (3)',hotspottextstyle);" onclick="loadscene(scene_pk3_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot4" style="mapspot" x="300" y="384" zorder="1" onhover="showtext('Căn hộ 150m2 - WC Phòng Ngủ (1)',hotspottextstyle);" onclick="loadscene(scene_wc_pk_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot5" style="mapspot" x="312" y="305" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (1)',hotspottextstyle);" onclick="loadscene(scene_pn1_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot6" style="mapspot" x="380" y="400" zorder="1" onhover="showtext('Căn hộ 150m2 - WC Phòng Khách (1)',hotspottextstyle);" onclick="loadscene(scene_wc_pn1_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot7" style="mapspot" x="338" y="174" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (2)',hotspottextstyle);" onclick="loadscene(scene_pn2_150m2, null, MERGE, BLEND(1));" />
+	<layer name="spot8" style="mapspot" x="381" y="130" zorder="1" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (3)',hotspottextstyle);" onclick="loadscene(scene_pn3_150m2, null, MERGE, BLEND(1));" />
+	<!-- Căn hộ 150m2-->
+
+	<action name="mapspot_loadscene">
+		if(layer[map].scale GT 0.1,
+			
+			set(layer[map].enabled, false);
+			tween(layer[map].alpha, 0.0, 0.1, default,
+				loadscene(%1, null, MERGE, BLEND(1));
+
+				set(layer[map].onclick, openmap(); );
+				layer[map].changeorigin(lefttop,lefttop);
+
+				set(layer[map].x, 10);
+				set(layer[map].y, 10);
+				set(layer[map].scale, 0.0);
+
+				set(events[sceneload].onloadcomplete,
+					delayedcall(1,
+						tween(layer[map].alpha, 1.0, 0.5, default, set(layer[map].enabled, true); );
+					  );
+				  );
+			  );
+		  ,
+			
+			loadscene(%1, null, MERGE, BLEND(1));
+		  );
+	</action>
+	<layer name="activespot" url="graphics/camicon_red.png" keep="true"
+	       align="center" scale="1.0" zorder="2" scale.mobile="2"
+	       />
+	<layer name="radar" keep="true"
+	       url.flash="%SWFPATH%/plugins/radar.swf"
+	       url.html5="%SWFPATH%/plugins/radar.js"
+	       align="center" zorder="1" scale="0.5" 
+	       scale.mobile="1.5"
+	       fillalpha="0.5" fillcolor="0x7F5F3F"
+	       linewidth="1.0" linecolor="0xE0E0A0" linealpha="0.5"
+	       />
+	<style name="hotspot_ani_black" editorplugin_ishotspotstyle="true"
+	       url="hotspots/hotspot_ani_black_64x64x20.png"
+	       crop="0|0|64|64"
+	       frames="20" framewidth="64" frameheight="64" frame="0"
+	       onloaded="if(device.mobile, set(scale,1.5)); hotspot_animate();"
+	       />
+	<style name="hotspot_ani_white" editorplugin_ishotspotstyle="true"
+	       url="hotspots/hotspot_ani_white_64x64x20.png"
+	       crop="0|0|64|64"
+	       frames="20" framewidth="64" frameheight="64" frame="0"
+	       onloaded="if(device.mobile, set(scale,1.5)); hotspot_animate();"
+	       />
+	<action name="hotspot_animate">
+		if(loaded,
+			inc(frame,1,get(frames),0);
+			mul(ypos,frame,frameheight);
+			txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
+			delayedcall(0.03, hotspot_animate() );
+		  );
+	</action>
+	
+	<!--END Sơ đồ mặt bằng -->
+	<action name="animation">
+		<!-- add attributes to the hotspot -->
+		registerattribute(xframes, calc((imagewidth / %1) BOR 0));
+		registerattribute(yframes, calc((imageheight / %2) BOR 0));
+		registerattribute(frames, calc(xframes * yframes));
+		registerattribute(frame, 0);
+
+		set(crop, '0|0|%1|%2');
+
+		setinterval(calc('crop_anim_' + name), calc(1.0 / %3),
+			if(loaded,
+				inc(frame);
+				if(frame GE frames, if(onlastframe !== null, onlastframe() ); set(frame,0); );
+				mod(xpos, frame, xframes);
+				div(ypos, frame, xframes);
+				Math.floor(ypos);
+				mul(xpos, %1);
+				mul(ypos, %2);
+				calc(crop, xpos + '|' + ypos + '|%1|%2');
+			  ,
+				clearinterval(calc('crop_anim_' + name));
+			  );
+		  );
+	</action>
+	
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+		playsound(s1,music/001.mp3, 0,0);
+		delayed_autoloadscene(0,15);
+		
+	</action>
+
+	<scene name="scene_pk1_150m2" title="Căn hộ 150m2 - Phòng khách (1)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pk1_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot1);
+			set(layer[radar].parent, spot1);
+			set(layer[radar].heading, 180);
+		</action>
+
+		<view hlookat="-181.410" vlookat="24.013" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pk1_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pk1_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m2" ath="-130.352" atv="16.147" onhover="showtext('Căn hộ 150m2 - Phòng khách (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pk2_150m2,null,MERGE,BLEND(1))" />
+
+	</scene>
+
+	<scene name="scene_pk2_150m2" title="Căn hộ 150m2 - Phòng khách (2)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pk2_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+			
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot2);
+			set(layer[radar].parent, spot2);
+			set(layer[radar].heading, 160);
+		</action>
+
+		<view hlookat="78.538" vlookat="22.241" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pk2_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pk2_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="106.007" atv="31.389" onhover="showtext('Căn hộ 150m2 - Phòng khách (3)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pk3_150m2,null,MERGE,BLEND(1))"/>
+	</scene>
+
+	<scene name="scene_pk3_150m2" title="Căn hộ 150m2 - Phòng khách (3)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pk3_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot3);
+			set(layer[radar].parent, spot3);
+			set(layer[radar].heading, -150);
+		</action>
+
+		<view hlookat="-89.113" vlookat="17.332" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pk3_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pk3_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="-82.180" atv="11.591" onhover="showtext('Căn hộ 150m2 - WC Phòng Khách',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_wc_pn1_150m2,null,MERGE,BLEND(1))" />
+	</scene>
+
+	<scene name="scene_wc_pn1_150m2" title="Căn hộ 150m2 - WC Phòng Khách" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/wc_pn1_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot6);
+			set(layer[radar].parent, spot6);
+			set(layer[radar].heading, 170);
+		</action>
+
+		<view hlookat="40.157" vlookat="12.133" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/wc_pn1_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/wc_pn1_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="174.018" atv="15.026" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pn1_150m2,null,MERGE,BLEND(1))" />
+	</scene>
+
+	<scene name="scene_pn1_150m2" title="Căn hộ 150m2 - Phòng ngủ (1)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pn1_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot5);
+			set(layer[radar].parent, spot5);
+			set(layer[radar].heading, 180);
+		</action>
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pn1_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pn1_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="videospot2"
+	         url="%SWFPATH%/plugins/videoplayer.swf"
+	         alturl="%SWFPATH%/plugins/videoplayer.js"
+	         videourl="video/video.mp4|video.webm"
+	         posterurl=""
+	         distorted="true"
+	         ath="-149.198"
+	         atv="-10.562"
+	         edge="center"
+	         scale="0.36" scale.mobile="0.36"
+	         rx="-11"
+	         ry="-32"
+	         rz="-0.3"
+	         loop="true"
+	         pausedonstart="false"
+	         directionalsound="true"
+	         range="200"
+	         volume="0"
+	         onhover="showtext('Pause/Play',hotspottextstyle);"
+	         onclick="togglepause();"
+	         /> 
+		<hotspot name="spot1" style="skin_m3" ath="-84.329" atv="3.565" onhover="showtext('Căn hộ 150m2 - WC Phòng Ngủ (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_wc_pk_150m2,null,MERGE,BLEND(1))"/>
+	</scene>
+
+	<scene name="scene_wc_pk_150m2" title="Căn hộ 150m2 - WC Phòng Ngủ (1)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/wc_pk_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot4);
+			set(layer[radar].parent, spot4);
+			set(layer[radar].heading, 170);
+		</action>
+
+		<view hlookat="-9.541" vlookat="9.351" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/wc_pk_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/wc_pk_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="123.646" atv="7.557" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pn2_150m2,null,MERGE,BLEND(1))"/>
+	</scene>
+
+	<scene name="scene_pn2_150m2" title="Căn hộ 150m2 - Phòng ngủ (2)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pn2_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot7);
+			set(layer[radar].parent, spot7);
+			set(layer[radar].heading, -90);
+		</action>
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pn2_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pn2_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="videospot6"
+	         url="%SWFPATH%/plugins/videoplayer.swf"
+	         alturl="%SWFPATH%/plugins/videoplayer.js"
+	         videourl="video/video.mp4|video.webm"
+	         posterurl=""
+	         distorted="true"
+	         ath="37.515"
+	         atv="-8.000"
+	         edge="center"
+	         scale="0.28" scale.mobile="0.28"
+	         rx="-8.2"
+	         ry="51.3"
+	         rz="-0"
+	         loop="true"
+	         pausedonstart="false"
+	         directionalsound="true"
+	         range="200"
+	         volume="0"
+	         onhover="showtext('Pause/Play',hotspottextstyle);"
+	         onclick="togglepause();"
+	         />
+		<hotspot name="spot1" style="skin_m3" ath="151.070" atv="12.241" onhover="showtext('Căn hộ 150m2 - Phòng ngủ (3)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pn3_150m2,null,MERGE,BLEND(1))"/>
+	</scene>
+
+	<scene name="scene_pn3_150m2" title="Căn hộ 150m2 - Phòng ngủ (3)" onstart="js(iconanhienngaydem(0));updateradar()" thumburl="panos/pn3_150m2.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			closeInfoPanel();
+			set(layer[inforicon].scale,0);
+			set(layer[inforicon].onclick,openInfo(3));
+			set(bt,0);
+			remove_bt_map(0.25,0.5,1);
+			removespot();
+			js(anhienmenu(1));
+			js(anhienphantu(1));
+			set(layer['spot1'].scale,1);
+			set(layer['spot2'].scale,1);
+			set(layer['spot3'].scale,1);
+			set(layer['spot4'].scale,1);
+			set(layer['spot5'].scale,1);
+			set(layer['spot6'].scale,1);
+			set(layer['spot7'].scale,1);
+			set(layer['spot8'].scale,1);
+			set(layer[bando].onclick,'openmap(1)');
+			set(layer[map].onclick,'closemap(1)');
+			set(layer[map].url,'graphics/canho150m2.png');
+			set(layer[activespot].parent, spot8);
+			set(layer[radar].parent, spot8);
+			set(layer[radar].heading, -90);
+		</action>
+
+		<view hlookat="57.930" vlookat="14.376" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/pn3_150m2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/pn3_150m2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="videospot7"
+	         url="%SWFPATH%/plugins/videoplayer.swf"
+	         alturl="%SWFPATH%/plugins/videoplayer.js"
+	         videourl="video/video.mp4|video.webm"
+	         posterurl=""
+	         distorted="true"
+	         ath="-111.934"
+	         atv="-7.000"
+	         edge="center"
+	         scale="0.30" scale.mobile="0.30"
+	         rx="-5"
+	         ry="25.3"
+	         rz="0"
+	         loop="true"
+	         pausedonstart="false"
+	         directionalsound="true"
+	         range="200"
+	         volume="0"
+	         onhover="showtext('Pause/Play',hotspottextstyle);"
+	         onclick="togglepause();"
+	         />
+		<hotspot name="spot1" style="skin_m3" ath="-163.395" atv="4.171" onhover="showtext('Căn hộ 150m2 - Phòng khách (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_pk1_150m2,null,MERGE,BLEND(1))" />
+	</scene>
+	
+</krpano>

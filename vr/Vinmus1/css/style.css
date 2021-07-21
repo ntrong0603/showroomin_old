@@ -1,0 +1,365 @@
+@-ms-viewport { width:device-width; }
+@media only screen and (min-device-width:800px) { html { overflow:hidden; } }
+html { height:100%; }
+body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+#popup1,#popup2,#popup3,#popup4,#popup5,#popup6,#popup7,#popup8{
+	display:none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(100, 100, 100, 0.3);
+}
+#loadpano{
+	display:none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(217, 203, 203, 0.5);
+}
+.gianhang{
+	display: block;
+	position:relative;
+	margin: auto;
+	background-color: #fff;
+	color: #000;
+	margin-top: 5%;
+}
+.gianhang .title_gianhang{
+	color:white;
+	font-size: 2em;
+}
+.title_giohang, .title_thanhtoan, .title_sanpham{
+	padding-top: 20px;
+	text-align: center;
+	color:#df0024;
+	font-weight: bold;
+	border-bottom: 2px solid #ccc;
+	text-transform: uppercase;
+}
+.gianhang table{
+	background-color: #fff;
+	width: 100%;
+	color: #000;
+	text-align: center;
+}
+.gianhang .title_product{
+	text-align: center;
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #333333;
+}
+.gianhang .mota{
+	margin: 0.5em 0px;
+}
+.gianhang .xemchitiet{
+	float: right;
+	background-color: #bbbbbb;
+    color: #666666;
+    font-weight: normal;
+    padding: 0.65em 1.6em;
+    font-size: 0.8em;
+}
+.gianhang .sanpham{
+	background-color: #fafafa;
+    padding: 1em;
+    position: relative;
+}
+.gianhang  .dathang{
+	float: left;
+	background-color: #df0024;
+    color: #fff;
+    font-weight: normal;
+	padding: 0.55em 1.3em;
+    font-size: 0.8em;
+}
+.dathang{
+	float: right;
+	background-color: #df0024;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+}
+.gianhang .giacu, .gianhang .giamoi{
+	text-align: right;
+	padding: 1em 0px;
+	font-weight: bold;
+}
+.gianhang .giacu{
+	text-decoration: line-through;
+}
+.gianhang .giamoi{
+	color: #df0024;
+	text-align: center;
+	font-weight: bold;
+}
+.gianhang .giacu{
+	color: #666666;
+	text-align: center;
+}
+.x2{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    right: -20px;
+    top: -20px;
+    background-color: #fff;
+    z-index: 2;
+    text-align: center;
+    border-radius: 50px;
+    padding: 0.5em;
+}
+.x2 a{
+	    color: #df0024;
+    font-size: 1.5em;
+}
+.x3{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    right: -20px;
+    top: -20px;
+    background-color: #fff;
+    z-index: 2;
+    text-align: center;
+    border-radius: 50px;
+    padding: 0.5em;
+}
+.x3 a{
+	    color: #df0024;
+    font-size: 1.5em;
+}
+.x{
+	position: absolute;
+    top: 5px;
+    left: 10px;
+	
+}
+.x a{
+	color: #ffffff;
+	font-size: 1.1em;
+	font-weight: normal;
+}
+.gianhang input[type="number"]{
+	width: 50px;
+}
+.clearfix{
+	clear: both;
+}
+th {
+	text-align: center;
+	background-color: #c4c4c4;
+	padding: 5px;
+}
+td{
+	padding: 5px;
+}
+.form_dathang{
+	display: block;
+}
+.form_dathang input[type='text'], .form_dathang input[type='email'], .form_dathang input[type='date'], .form_dathang textarea{
+	padding: 5px;
+    border: 2px solid #f2f2f2;
+    width: 50%;
+}
+.form_dathang input[type='button']{
+	border: 2px solid #df0024;
+    background-color: #df0024;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 10%;
+    border-radius: 5px;
+}
+#thongtinchitietsp td{
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+#thongtinchitietsp input[type='button']{
+	border: 2px solid #df0024;
+    background-color: #df0024;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #000;
+}
+.chitietsp h3{
+	padding: 0px;
+	margin: 0px;
+	color: #6b6b69;
+}
+.quaylaigianhang{
+    float: left;
+    display: block;
+}
+.quaylaigianhang a,.giohang2 a{
+    display: block;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: normal;
+}
+.giohang2{
+    float: right;
+    display: block;
+	padding: 5px 10px;
+}
+@media (max-width: 768px){
+	.gianhang{
+		width: 100%;
+	}
+	.gianhang2{
+		padding: 0px;
+		height: 25em ;
+	}
+	.x{
+		right: 0px;
+	}
+	.gianhang{
+		margin-bottom: 30px
+	}
+	.all_sp_gianhang{
+		height: 25em ;
+	}
+	#thongtinchitietsp{
+		height: 25em ;
+	}
+	.quaylaigianhang a, .giohang2 a{
+		padding: 10px 10px;
+	}
+	.title_gianhang,.title_giohang, .title_thanhtoan, .title_sanpham{
+		font-size: 1.5em;
+	}
+	.gianhang3{
+
+	}
+	.form_dathang input[type='text'], .form_dathang input[type='email'], .form_dathang input[type='date'], .form_dathang textarea {
+		width: 180px;
+	}
+	.form_dathang td{
+		width: 113px;
+	}
+}
+@media (max-height: 350px){
+	.all_sp_gianhang{
+		height: 10em ;
+	}
+	#thongtinchitietsp{
+		height: 9.5em ;
+	}
+	.gianhang2{
+		height: 10em ;
+	}
+	.gianhang3{
+		height: 10em ;
+	}
+}
+.sanpham-danhmuc img{
+	display: initial;
+}
+.style-giohang{
+ 	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+.item{
+	margin-top: 1em;
+	padding: 5px;
+
+}
+.bkg-sale{
+	border-top: 50px solid #df0024;
+
+	border-right: 50px solid transparent;
+	position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+.sale{
+	position: absolute;
+	margin-top: 5px;
+    padding: 0px;
+    font-size: 1em;
+    z-index: 2;
+    top: 0px;
+    left: -0px;
+    color: white;
+    transform: rotate(-45deg);
+-webkit-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+
+}
+#soluongmua::-webkit-inner-spin-button{
+    opacity: 1;
+	width: 30px;
+    padding: 5px;
+    height: 30px;
+}
+.set-pad-img img{
+	padding-left: 10px;
+}
+.fix-height img{
+	/*max-height: 350px;*/
+}
+.slick-initialized .slick-slide {
+	padding: 5px;
+}
+.fix-scorll-ball::-webkit-scrollbar{
+	width: 5px;
+  height: 8px;
+  background-color: #aaa; /* or add it to the track */
+}
+.fix-scorll-ball::-webkit-scrollbar-thumb {
+    background: #000; 
+}
+.selected-tog a{
+	color: #fff !important;
+}
+.tab-tog{
+	padding: 10px;
+}
+.tab-tog a{
+	line-height: 32px;
+    color: #999999;
+}
+.tab-tog span{
+    background-color: #fff;
+    color: #999999;
+    padding: 5px 9px;
+    border-radius: 50px;
+}
+.selected-tog {
+	background-color: #3399cc;
+}
+.btn_add, .btn_sub{
+	width: 30px;
+    color: #bcbcbc;
+    background-color: #fbfbfb;
+    border: 1px solid;
+    padding: 2px;
+    margin: -4px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px 0px 0px 5px;
+}
+.btn_add{
+	border-radius: 0px 5px 5px 0px;
+}
+.item_giohang .item_gh{
+	margin-bottom: 10px;
+	border-bottom: 2px solid #cccccc;
+	padding-bottom: 10px;
+}
+.select_menu_gioithieu{
+	background-color: white !important;
+}
+.select_menu_gioithieu a{
+	color: green !important;
+}
+.scorll-chitiet{
+	overflow: auto;
+}

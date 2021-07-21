@@ -1,0 +1,480 @@
+﻿<krpano version="1.19" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+	<include url="%SWFPATH%/plugins/showtext.xml" />
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               webvr_gyro_keeplookingdirection="false"
+	               webvr_prev_next_hotspots="true"
+	               littleplanetintro="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+	<textstyle name="hotspottextstyle"
+		font="Arial" fontsize="18" bold="true" padding="5 10" italic="false" textcolor="0xff9900" background="true" backgroundcolor="0x333333" border="true" bordercolor="0xff9900" 
+		alpha="0.8" blendmode="layer" effect="glow(0x000000,0.5,4,3);dropshadow(4,45,0x000000,4,0.66);"
+		origin="cursor" edge="bottom" textalign="center" xoffset="0" yoffset="-5" noclip="true" showtime="0.1" fadetime="0.25" fadeintime="0.1"
+	/>
+	<autorotate enabled="true" waittime="1.0" accel="1.0" speed="6.0" horizon="15.0" tofov="120.0" />
+	
+	<layer name="inforicon" url="images/conversation.png" x="0" y="10" keep="true" handcursor="false" capture="false"
+		   align="centertop"
+		   scale="1" scalechildren="true" onhover="showtext('Giới Thiệu',hotspottextstyle);"
+		   onclick="openInfo(1);"
+	/>
+	<action name="openInfo">
+
+
+		set(layer[inforpanel].url, "images/00%1.png");
+
+
+
+		layer[inforpanel].changeorigin(center,center);
+
+		set(bigscale,1);
+		if(layer[inforpanel].imagewidth GT stagewidth, div(bigscale, stagewidth, layer[inforpanel].imagewidth); );
+
+		tween(layer[inforpanel].x, 10);
+		tween(layer[inforpanel].y, -20);
+		tween(layer[inforpanel].scale, get(bigscale));
+
+	</action>
+
+
+	<layer name="inforpanel" url="images/001.png" keep="true" handcursor="false" capture="false"
+		   align="centertop"
+		   scale="0" scalechildren="true"
+		   onclick="closeInfoPanel();"
+	/>
+
+	<action name="closeInfoPanel">
+		layer[inforpanel].changeorigin(centertop,centertop);
+
+		tween(layer[inforpanel].x, 10);
+		tween(layer[inforpanel].y, 10);
+		tween(layer[inforpanel].scale, 0);
+	</action>
+
+
+	<layer name="bando" title="Bản Đồ" url="graphics/maps_icon.png" x="10" y="60" keep="true" handcursor="false" capture="false" align="lefttop" scale="0" scalechildren="true" onclick="openmap();" onhover="showtext('Sơ Đồ',hotspottextstyle);"	       
+		/>
+	<layer name="map" title="Ban Do" url="graphics/map1.jpg" x="20" y="20" keep="true" handcursor="false" capture="false"
+	       align="lefttop"
+	       scale="0.0" scalechildren="true"
+	       onclick="openmap();"
+	       />
+	<action name="openmap">
+		set(layer[map].onclick, closemap(); );
+		layer[map].changeorigin(center,center);
+
+		set(bigscale,1);
+		if(layer[map].imagewidth GT stagewidth, div(bigscale, stagewidth, layer[map].imagewidth); );
+
+		tween(layer[map].x, 0);
+		tween(layer[map].y, -10);
+		tween(layer[map].scale, get(bigscale));
+	</action>
+	<action name="closemap">
+		set(layer[map].onclick, openmap(); );
+		layer[map].changeorigin(lefttop,lefttop);
+
+		tween(layer[map].x, 20);
+		tween(layer[map].y, 20);
+		tween(layer[map].scale, 0.0);
+	</action>
+	<style name="mapspot" keep="true" url="graphics/camicon.png" parent="map" align="lefttop" scale="1.0" scale.mobile="2" edge="center"  />
+
+	<layer name="spot1" style="mapspot" x="440" y="450" zorder="1" onhover="showtext('Mặt tiền',hotspottextstyle);" onclick="loadscene(scene_s1, null, MERGE, BLEND(1));" />
+
+	<layer name="spot2" style="mapspot" x="370" y="270" zorder="1" onhover="showtext('Phòng khách (1)',hotspottextstyle);" onclick="loadscene(scene_s2, null, MERGE, BLEND(1));" />
+	<layer name="spot3" style="mapspot" x="530" y="250" zorder="1" onhover="showtext('Bếp cổ điển (1)',hotspottextstyle);" onclick="loadscene(scene_s4, null, MERGE, BLEND(1));" />
+	<layer name="spot4" style="mapspot" x="590" y="300" zorder="1" onhover="showtext('Bếp cổ điển (2)',hotspottextstyle);" onclick="loadscene(scene_s5, null, MERGE, BLEND(1));" />
+	<layer name="spot5" style="mapspot" x="370" y="170" zorder="1" onhover="showtext('Bếp hiện đại (1)',hotspottextstyle);" onclick="loadscene(scene_s3, null, MERGE, BLEND(1));" />
+	<layer name="spot6" style="mapspot" x="450" y="170" zorder="1" onhover="showtext('Bếp hiện đại (2)',hotspottextstyle);" onclick="loadscene(scene_s12, null, MERGE, BLEND(1));" />
+	<layer name="spot7" style="mapspot" x="310" y="230" zorder="1" onhover="showtext('Phòng khách (2)',hotspottextstyle);" onclick="loadscene(scene_s11, null, MERGE, BLEND(1));" />
+	<layer name="spot8" style="mapspot" x="275" y="180" zorder="1" onhover="showtext('Phòng ngủ hiện đại',hotspottextstyle);" onclick="loadscene(scene_s10, null, MERGE, BLEND(1));" />
+	<layer name="spot9" style="mapspot" x="380" y="90" zorder="1" onhover="showtext('Phòng thay đồ (1)',hotspottextstyle);" onclick="loadscene(scene_s9, null, MERGE, BLEND(1));" />
+	<layer name="spot10" style="mapspot" x="460" y="90" zorder="1" onhover="showtext('Phòng thay đồ (2)',hotspottextstyle);" onclick="loadscene(scene_s8, null, MERGE, BLEND(1));" />
+	<layer name="spot11" style="mapspot" x="520" y="90" zorder="1" onhover="showtext('Phòng Ngủ cổ điển (1)',hotspottextstyle);" onclick="loadscene(scene_s7, null, MERGE, BLEND(1));" />
+	<layer name="spot12" style="mapspot" x="520" y="200" zorder="1" onhover="showtext('Phòng Ngủ cổ điển (2)',hotspottextstyle);" onclick="loadscene(scene_s6, null, MERGE, BLEND(1));" />
+	<layer name="spot13" style="mapspot" x="190" y="205" zorder="1" onhover="showtext('Khu vườn',hotspottextstyle);" onclick="loadscene(scene_s13, null, MERGE, BLEND(1));" />
+	
+	<action name="mapspot_loadscene">
+		if(layer[map].scale GT 0.1,
+			
+			set(layer[map].enabled, false);
+			tween(layer[map].alpha, 0.0, 0.1, default,
+				loadscene(%1, null, MERGE, BLEND(1));
+
+				set(layer[map].onclick, openmap(); );
+				layer[map].changeorigin(lefttop,lefttop);
+
+				set(layer[map].x, 10);
+				set(layer[map].y, 10);
+				set(layer[map].scale, 0.0);
+
+				set(events[sceneload].onloadcomplete,
+					delayedcall(1,
+						tween(layer[map].alpha, 1.0, 0.5, default, set(layer[map].enabled, true); );
+					  );
+				  );
+			  );
+		  ,
+			
+			loadscene(%1, null, MERGE, BLEND(1));
+		  );
+	</action>
+	<layer name="activespot" url="graphics/camicon_red.png" keep="true"
+	       align="center" scale="1.0" zorder="2" scale.mobile="2"
+	       />
+	<layer name="radar" keep="true"
+	       url.flash="%SWFPATH%/plugins/radar.swf"
+	       url.html5="%SWFPATH%/plugins/radar.js"
+	       align="center" zorder="1" scale="0.5" 
+	       scale.mobile="1.5"
+	       fillalpha="0.5" fillcolor="0x7F5F3F"
+	       linewidth="1.0" linecolor="0xE0E0A0" linealpha="0.5"
+	       />
+	<style name="hotspot_ani_black" editorplugin_ishotspotstyle="true"
+	       url="hotspots/hotspot_ani_black_64x64x20.png"
+	       crop="0|0|64|64"
+	       frames="20" framewidth="64" frameheight="64" frame="0"
+	       onloaded="if(device.mobile, set(scale,1.5)); hotspot_animate();"
+	       />
+	<style name="hotspot_ani_white" editorplugin_ishotspotstyle="true"
+	       url="hotspots/hotspot_ani_white_64x64x20.png"
+	       crop="0|0|64|64"
+	       frames="20" framewidth="64" frameheight="64" frame="0"
+	       onloaded="if(device.mobile, set(scale,1.5)); hotspot_animate();"
+	       />
+	
+	<events onnewpano="js(setButtonKrpano());js(openLoadLogo());delayedcall(1.5,js(closeLoadLogo());js(showMenuAndCart());js(uploadgiohang()))"></events>
+
+	<action name="hotspot_animate">
+		if(loaded,
+			inc(frame,1,get(frames),0);
+			mul(ypos,frame,frameheight);
+			txtadd(crop,'0|',get(ypos),'|',get(framewidth),'|',get(frameheight));
+			delayedcall(0.03, hotspot_animate() );
+		  );
+	</action>
+	<!--END Sơ đồ mặt bằng -->
+	<!-- startup action - load the first scene -->
+	<plugin name="soundinterface"
+	        url="%SWFPATH%/plugins/soundinterface.swf"
+	        alturl="%SWFPATH%/plugins/soundinterface.js"
+	        rootpath="%CURRENTXML%"
+	        preload="true" keep="true" volume="0.3"
+	        />
+	<plugin name="snd" url="%SWFPATH%/images/soundonoff.png" keep="true" align="leftbottom" x="10" y="100" alpha="0.5" scale="1.0" 
+		    onover="tween(alpha,1);" 
+		    onout="tween(alpha,0.5);" 
+	        crop="0|0|50|50"
+	        onclick="switch(soundinterface.mute); switch(crop, 0|0|50|50, 0|50|50|50);" 
+	        />	
+			
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+		playsound(s1,music/001.mp3, 0,0);
+	</action>
+
+	<scene name="scene_s2" title="Phòng khách (1)" onstart="updateradar()" thumburl="panos/s2.tiles/thumb.jpg" lat="" lng="" heading="">
+		
+		<action name="updateradar">
+			set(layer[activespot].parent, spot2);
+			set(layer[radar].parent, spot2);
+			set(layer[radar].heading, -20);
+		</action>
+
+		<view hlookat="-378.357" vlookat="12.391" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s2.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="0.704" atv="15.596" onhover="showtext('Bếp cổ điển (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s4,null,MERGE,BLEND(1))" />
+		<hotspot name="spot2" style="skin_m4" ath="-531.197" atv="42.129" onhover="showtext('Phòng khách (2)',hotspottextstyle);" onclick="looktohotspot(spot2);loadscene(scene_s11,null,MERGE,BLEND(1))" />
+		<hotspot name="spot3" style="skin_m3" ath="-96.261" atv="32.695" onhover="showtext('Bếp hiện đại (1)',hotspottextstyle);" onclick="looktohotspot(spot3);loadscene(scene_s3,null,MERGE,BLEND(1))" />
+		
+	</scene>
+
+	<scene name="scene_s4" title="Bếp cổ điển (1)" onstart="updateradar()" thumburl="panos/s4.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot3);
+			set(layer[radar].parent, spot3);
+			set(layer[radar].heading, -35);
+		</action>
+
+		<view hlookat="-333.711" vlookat="28.510" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s4.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s4.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="8.293" atv="38.708" onhover="showtext('Bếp cổ điển (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s5,null,MERGE,BLEND(1))"/>
+
+	</scene>
+
+	<scene name="scene_s5" title="Bếp cổ điển (2)" onstart="updateradar()" thumburl="panos/s5.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot4);
+			set(layer[radar].parent, spot4);
+			set(layer[radar].heading, 0);
+		</action>
+
+		<view hlookat="-163.912" vlookat="19.934" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s5.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s5.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m4" ath="-161.082" atv="13.245" onhover="showtext('Phòng khách (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s2,null,MERGE,BLEND(1))" />
+	
+
+	</scene>
+
+	<scene name="scene_s3" title="Bếp hiện đại (1)" onstart="updateradar()" thumburl="panos/s3.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot5);
+			set(layer[radar].parent, spot5);
+			set(layer[radar].heading, -40);
+		</action>
+
+		<view hlookat="32.407" vlookat="27.000" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s3.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="-0.183" atv="28.494" onhover="showtext('Bếp hiện đại (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s12,null,MERGE,BLEND(1))" />
+		<hotspot name="spot2" style="skin_m4" ath="-176.424" atv="44.802" onhover="showtext('Phòng ngủ hiện đại',hotspottextstyle);" onclick="looktohotspot(spot2);loadscene(scene_s10,null,MERGE,BLEND(1))" />
+
+	</scene>
+
+	<scene name="scene_s12" title="Bếp hiện đại (2)" onstart="updateradar()" thumburl="panos/s12.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot6);
+			set(layer[radar].parent, spot6);
+			set(layer[radar].heading, -10);
+		</action>
+
+		<view hlookat="18.651" vlookat="25.479" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s12.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s12.tiles/pano_%s.jpg" />
+		</image>
+		
+		<hotspot name="spot2" style="skin_m2" ath="-163.594" atv="33.825" onhover="showtext('Phòng thau đồ (1)',hotspottextstyle);" onclick="looktohotspot(spot2);loadscene(scene_s9,null,MERGE,BLEND(1))" />
+
+	</scene>
+	
+	<scene name="scene_s11" title="Phòng khách (2)" onstart="updateradar()" thumburl="panos/s11.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot7);
+			set(layer[radar].parent, spot7);
+			set(layer[radar].heading, -10);
+		</action>
+
+		<view hlookat="134.436" vlookat="25.120" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s11.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s11.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="-5.557" atv="32.941" onhover="showtext('Phòng khách (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s2,null,MERGE,BLEND(1))"/>
+
+	</scene>
+
+	<scene name="scene_s10" title="Phòng ngủ hiện đại" onstart="updateradar()" thumburl="panos/s10.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot8);
+			set(layer[radar].parent, spot8);
+			set(layer[radar].heading, 0);
+		</action>
+
+		<view hlookat="269.594" vlookat="17.939" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s10.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s10.tiles/pano_%s.jpg" />
+		</image>
+		
+		<hotspot name="spot1" style="skin_m4" ath="12.502" atv="31.530" onhover="showtext('Bếp hiện đại (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s3,null,MERGE,BLEND(1))" />
+		<hotspot name="spot2" style="skin_m3" ath="-169.042" atv="39.621" onhover="showtext('Khu vườn',hotspottextstyle);" onclick="looktohotspot(spot2);loadscene(scene_s13,null,MERGE,BLEND(1))" />
+	
+
+	</scene>
+
+	<scene name="scene_s9" title="Phòng thay đồ (1)" onstart="updateradar()" thumburl="panos/s9.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot9);
+			set(layer[radar].parent, spot9);
+			set(layer[radar].heading, 0);
+		</action>
+
+		<view hlookat="1.485" vlookat="7.442" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s9.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s9.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="-2.536" atv="29.839" onhover="showtext('Phòng thay đồ (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s8,null,MERGE,BLEND(1))"/>
+	
+	</scene>
+
+	<scene name="scene_s8" title="Phòng thay đồ (2)" onstart="updateradar()" thumburl="panos/s8.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot10);
+			set(layer[radar].parent, spot10);
+			set(layer[radar].heading, 0);
+		</action>
+
+		<view hlookat="-545.881" vlookat="14.311" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s8.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s8.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m2" ath="-0.950" atv="30.241" onhover="showtext('Phòng ngủ cổ điển (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s7,null,MERGE,BLEND(1))"/>
+		
+
+	</scene>
+
+	<scene name="scene_s7" title="Phòng ngủ cổ điển (1)" onstart="updateradar()" thumburl="panos/s7.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot11);
+			set(layer[radar].parent, spot11);
+			set(layer[radar].heading, -30);
+		</action>
+
+		<view hlookat="55.825" vlookat="19.372" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s7.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s7.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="92.209" atv="24.434" onhover="showtext('Phòng ngủ cổ điển (2)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s6,null,MERGE,BLEND(1))"/>
+	
+
+	</scene>
+	
+	<scene name="scene_s6" title="Phòng ngủ cổ điển (2)" onstart="updateradar()" thumburl="panos/s6.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot12);
+			set(layer[radar].parent, spot12);
+			set(layer[radar].heading, -10);
+		</action>
+
+		<view hlookat="-59.783" vlookat="16.488" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s6.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m2" ath="95.167" atv="29.683" onhover="showtext('Phòng khách (1)',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s2,null,MERGE,BLEND(1))" />
+		
+
+	</scene>
+
+	<scene name="scene_s13" title="Khu vườn" onstart="updateradar()" thumburl="panos/s13.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<action name="updateradar">
+			set(layer[activespot].parent, spot13);
+			set(layer[radar].parent, spot13);
+			set(layer[radar].heading, -170);
+		</action>
+
+		<view hlookat="-11.030" vlookat="30.427" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/s13.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/s13.tiles/pano_%s.jpg" />
+		</image>
+		<hotspot name="spot1" style="skin_m3" ath="129.653" atv="24.858" 
+		onhover="showtext('Phòng ngủ hiện đại',hotspottextstyle);" onclick="looktohotspot(spot1);loadscene(scene_s10,null,MERGE,BLEND(1))" />
+		
+	</scene>
+
+
+</krpano>

@@ -1,0 +1,140 @@
+<?php
+$_SESSION['item']=1;
+function tinhtrang($i=0)
+	{
+		$sql="select * from table_tinhtrang order by id";
+		$stmt=mysql_query($sql);
+		$str='
+			<select id="id_tinhtrang" name="id_tinhtrang" class="main_font">					
+			';
+		while ($row=@mysql_fetch_array($stmt)) 
+		{
+			if($row["id"]==$i)
+				$selected="selected";
+			else 
+				$selected="";
+			$str.='<option value='.$row["id"].' '.$selected.'>'.$row["trangthai"].'</option>';			
+		}
+		$str.='</select>';
+		return $str;
+	}
+	
+	?>
+<h3>Chi tiết đơn hàng</h3>
+
+<form name="frm" method="post" action="index.php?com=order&act=save" target='_blank' enctype="multipart/form-data" id="nhaplieu" class="nhaplieu">	    
+    <b>Họ tên: </b> <input name='hoten' value=''/><br /><br />			  
+        <b>Điện thoại: </b> <input name='dienthoai' value=''/><br /><br />			  
+        <b>Email: </b> <input name='email' value=''/><br /><br />		
+        <b>Địa chỉ: </b> <input name='diachi' value=''/><br /><br />		  
+   
+		<b>Ghi chú</b><textarea name="ghichu" cols="50" rows="5" id="ghichu"><?php echo @$item['ghichu']?></textarea><br/><br />	
+		<br />	
+		
+		
+	<div id='donhang' class='' >  
+		<div id='item' class='' > 
+			<input name="cart[masp][]" class='masp' placeholder='Mã sản phẩm' value="" type="text" size="10"   />	
+			<input name="cart[soluong][]" class='soluong' placeholder='số lượng' value="" type="text" size="10"   />	
+			<input name="cart[ten][]" class='tensp'  placeholder='Tên sản phẩm'  value="" type="text" readonly size="40"   />
+			<input name="cart[giaban][]" class='giaban' placeholder='Đơn giá' value="" type="text" size="10"   />	
+			<input name="cart[tongia][]" class='tonggia' placeholder='Thành tiền' value="" type="text" size="20"   />	
+			<input type="button" value="Delete" class="btn xoathem" />
+		</div>
+	</div>
+	<b>Tổng hóa đơn</b> <span id='thanhtien'>0đ</span>
+	<br /><br />	
+	<span class='them' id='them'> Add place </span><br /><br />	
+	<br /><br />	
+	<input type="hidden" name="id" id="id" value="<?php echo @$item['id']?>" />
+	<input type="submit" value="Xuất hóa đơn" class="btn xuathoadon" onclick='testfunc()' />
+	<input type="button" value="Thoát" onclick="javascript:window.location='index.php?com=order&act=man'" class="btn" />
+</form>
+
+<script>
+$(document).ready(function(){
+	function testfunc() {
+   
+    setTimeout(function() {
+        window.location.href = ('index.php?com=order&act=man');
+        
+    }, 1);
+    jQuery('form#nhaplieu').submit();
+   
+
+}
+
+
+	
+		$('body').on('keyup','.masp',function(){
+								idsp=$(this).val();
+							item=$(this).parent();
+						
+							$.ajax({
+													type:"get",
+													url:"templates/donhang/ajax/ajaxloadten.php",
+													data:"idsp="+idsp,
+													async:false,
+													success:function(kq){
+													item.find('.tensp').val(kq);
+													
+													}
+												})
+												
+							
+							$.ajax({
+													type:"get",
+													url:"templates/donhang/ajax/ajaxloadgia.php",
+													data:"idsp="+idsp,
+													async:false,
+													success:function(kq){
+													item.find('.giaban').val(kq);
+													
+													}
+												})
+						})	
+			
+			$('body').on('keyup','.soluong',function(){
+				item=$(this).parent();
+								soluong=item.find('.soluong').val();
+								giaban=item.find('.giaban').val();
+							tonggia=soluong*giaban;
+						
+						item.find('.tonggia').val(tonggia);
+								
+						  var sum = 0;
+						$('.tonggia').each(function() {
+							sum += Number($(this).val());
+						});	
+						$('#thanhtien').html(sum+"đ");
+												
+						})	
+			
+		
+			$('.xuathoadon').click(function(){
+				
+			})
+			$('#them').click(function(){
+			
+							$.ajax({
+													type:"get",
+													url:"templates/donhang/ajax/them.php",
+													
+													async:false,
+													success:function(kq){
+													$('#donhang').append(kq);
+													
+													}
+												})
+							
+						})	
+			
+				$('body').on('click','.xoathem',function(){
+				
+				item=$(this).parent();
+				item.html('');
+			})
+							})
+					
+
+</script>
